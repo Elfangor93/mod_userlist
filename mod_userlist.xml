@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.1.0" client="site" method="upgrade">
+    <name>Userlist</name>
+    <author>Manuel Häusler</author>
+    <version>1.0.0</version>
+    <description>Ein Modul, um die alle aktiven User in einer Tabelle darzustellen und diese als PDF-Download bereitstellt.</description>
+    <files>
+        <filename module="mod_userlist">mod_userlist.php</filename>
+        <filename>mod_userlist.xml</filename>
+        <filename>index.html</filename>
+        <filename>helper.php</filename>
+        <filename>tmpl/default.php</filename>
+        <filename>tmpl/index.html</filename>
+        <filename>userlist_PDF.php</filename>
+        <folder>TCPDF</folder>
+    </files>
+    <config>
+        <fields name="params">
+            <fieldset name="settings" label="Einstellungen">                     
+                <field name="order_which"
+                    type="list"
+                    default="0"
+                    label="Sortieren nach"
+                    description="Nach welchem Kriterium sollen die Tabellneinträge sortiert werden?"
+                    required="true">
+                    <option value="0">Name</option>
+                    <option value="1">Benutzername</option>
+                    <option value="2">E-Mail-Adresse</option>
+                </field>
+                 
+                <field name="ordering"
+                    type="list"
+                    default="0"
+                    label="JFIELD_ORDERING_LABEL"
+                    description="JFIELD_ORDERING_DESC"
+                    equired="true">
+                    <option value="0">Aufsteigend</option>
+                    <option value="1">Absteigend</option>
+                </field>
+            </fieldset>
+        </fields>
+    </config>
+</extension>
