@@ -33,15 +33,17 @@
           $obj_pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));  
           $obj_pdf->SetDefaultMonospacedFont('helvetica');  
           $obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);  
-          $obj_pdf->SetMargins(PDF_MARGIN_LEFT, '10', PDF_MARGIN_RIGHT);  
+          $obj_pdf->SetMargins(PDF_MARGIN_LEFT, '10', PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);  
           $obj_pdf->setPrintHeader(false);  
           $obj_pdf->setPrintFooter(false);  
           $obj_pdf->SetAutoPageBreak(TRUE, 10);  
           $obj_pdf->SetFont('helvetica', '', 11);  
           $obj_pdf->AddPage('L', 'A4');  
-          $content = $output;  
-          $content .= '<br /><p>Druckdatum: '.date("d.m.Y, H:i \U\H\R").'</p>';  
-          $obj_pdf->writeHTML($content); 
+          $content = '<h1>registrierte Benutzer:</h1><br /><br /><br />';
+          $content .= $output; 
+          $content .= '<br /><p>Druckdatum: '.date("d.m.Y, H:i \U\H\R").'</p>';
+          $obj_pdf->setCellHeightRatio(1.25);
+          $obj_pdf->writeHTML($content, true, false, true, false, '');
           ob_end_clean(); 
           $obj_pdf->Output('Benutzerliste.pdf', 'I');
       echo '<div class="alert alert-success"><p>PDF erfolgreich generiert</p></div><br />';
@@ -58,6 +60,6 @@
     }
   ?>
   <br />
-  <button type="button" class="btn btn-primary">Zurück</button>
+  <a href="<?php echo JUri::base();?>" class="btn btn-primary">Zurück</a>
 </body>
 </html>  
