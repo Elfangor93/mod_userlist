@@ -41,11 +41,10 @@ $url = JUri::base() . 'modules/mod_userlist/userlist_PDF.php';
 	    <br/>
 	    <table border="1">
         	<tr class="table_heading">
-               	<th width="15%">Name</th>
-                <th width="10%">Benutzer</th> 
+               	<th width="20%">Name</th>
+                <th width="15%">Benutzer</th> 
                 <th width="25%">E-Mail</th>
-                <th width="10%">Frei-gegeben</th>   
-                <th width="10%">Aktiviert</th>
+                <th width="10%">Aktiviert</th>   
                 <th width="15%">Letzter Besuch</th>
                 <th width="15%">Register-Datum</th> 
         	</tr>
@@ -57,8 +56,7 @@ foreach ($items as $key => $entry) {
 					<td>'.$items[$key]['name'].'</td>
 					<td>'.$items[$key]['username'].'</td>
 					<td>'.$items[$key]['email'].'</td>
-					<td>'.$items[$key]['block'].'</td>
-					<td>'.$items[$key]['activation'].'</td>
+					<td>'.!$items[$key]['block'].'</td>
 					<td>'.$items[$key]['lastvisitDate'].'</td>
 					<td>'.$items[$key]['registerDate'].'</td>
 				</tr>';
@@ -80,7 +78,7 @@ jQuery(document).ready(function(){
 	    event.preventDefault();
 
 		var formData = new FormData(document.getElementById('form_PDF'));
-		//formData.append('appended1', 'appended value');
+		//formData.append('name', 'value');
 
 		var xhr=new XMLHttpRequest();
 		xhr.open("POST", "<?php echo $url;?>", true);
