@@ -2,6 +2,7 @@
 
 // If Button PDF-Download is clicked: generate PDF
 if(isset($_POST["html_table"]))  { 
+      
       //load Table from Form submit
       $output = $_POST["html_table"];
       //generate PDF
@@ -24,26 +25,33 @@ if(isset($_POST["html_table"]))  {
 
       // Create HTML content 
       $content = '<h1>registrierte Benutzer:</h1><br />';
-      $content .= '<table border="1">
-                    <tr class="table_heading">
-                          <th width="15%">Name</th>
-                          <th width="10%">Benutzer</th> 
-                          <th width="25%">E-Mail</th>
-                          <th width="10%">Frei-gegeben</th>   
-                          <th width="10%">Aktiviert</th>
-                          <th width="15%">Letzter Besuch</th>
-                          <th width="15%">Register-Datum</th> 
+      $content .= '<table>
+                    <tr class="table_heading" style="font-weight: bold;">
+                        <th width="19%">Name</th>
+                        <th width="19%">Benutzer</th> 
+                        <th width="25%">E-Mail</th>
+                        <th width="7%">Aktiviert</th>   
+                        <th width="15%">Letzter Besuch</th>
+                        <th width="15%">Register-Datum</th> 
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th></th> 
+                        <th></th>
+                        <th></th>   
+                        <th></th>
+                        <th></th> 
                     </tr>';
       $content .= $output;
       $content .= '<br /><p>Druckdatum: '.date("d.m.Y, H:i \U\H\R").'</p>';
 
       //paste content into the PDF 
-      $obj_pdf->setCellHeightRatio(1.25);
+      //$obj_pdf->setCellHeightRatio(1.25);
       $obj_pdf->writeHTML($content, true, false, true, false, '');
       //output the PDF
       ob_end_clean(); 
       $obj_pdf->Output('Benutzerliste.pdf', 'I');
-//  echo '<div class="alert alert-success"><p>PDF erfolgreich generiert</p></div><br />';
+ echo '<div class="alert alert-success"><p>PDF erfolgreich generiert</p></div><br />';
 } else {
   echo '<div class="alert alert-danger"><p>Diese Seite ist nur verfügbar, wenn sie aus dem Joomla-Modul ("Userlist") aufgerufen wird.</p></div><br />';
 }
