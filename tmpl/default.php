@@ -49,40 +49,57 @@ $url = JUri::base() . 'modules/mod_userlist/userlist_PDF.php';
 </style>
 
 <div>    
-	<div class="table-responsive">  
-		<div class="col-md-12" align="right">
-	    	<form id="form_PDF" method="post" action="">
-	        	<input type="submit" name="generate_pdf" class="btn btn-success" value="<?php echo JText::_('MOD_USERLIST_VIEW_BUTTON');?>">  
-	     	</form>  
-	    </div>
+	<div class="table-responsive">
+		<div class="row" style="margin-left: 0px;">
+			<div class="span10">
+		    	<p><?php echo JText::_('MOD_USERLIST_VIEW_DESC');?></p>
+		    </div>
+			<div class="span2">
+		    	<form id="form_PDF" method="post" action="">
+		        	<input type="submit" name="generate_pdf" class="btn btn-success" value="<?php echo JText::_('MOD_USERLIST_VIEW_BUTTON');?>">  
+		     	</form> 
+		    </div>		    
+	    </div> 
 	    <br/>
-	    <br/>
-	    <table border="1">
-        	<tr class="table_heading">
-               	<th width="20%"><?php echo JText::_('MOD_USERLIST_VIEW_TABLEHEADING_NAME');?></th>
-                <th width="15%"><?php echo JText::_('MOD_USERLIST_VIEW_TABLEHEADING_USERNAME');?></th> 
-                <th width="25%"><?php echo JText::_('MOD_USERLIST_VIEW_TABLEHEADING_EMAIL');?></th>
-                <th width="10%"><?php echo JText::_('MOD_USERLIST_VIEW_TABLEHEADING_ENABLED');?></th>   
-                <th width="15%"><?php echo JText::_('MOD_USERLIST_VIEW_TABLEHEADING_LASTVISIT');?></th>
-                <th width="15%"><?php echo JText::_('MOD_USERLIST_VIEW_TABLEHEADING_REGISTERDATE');?></th> 
-        	</tr>
 
-<?php
-// Create Table out of fetched Data from Database
-foreach ($items as $key => $entry) {
-	$output .= '<tr>
-					<td>'.$items[$key]['name'].'</td>
-					<td>'.$items[$key]['username'].'</td>
-					<td>'.$items[$key]['email'].'</td>
-					<td>'.!$items[$key]['block'].'</td>
-					<td>'.$items[$key]['lastvisitDate'].'</td>
-					<td>'.$items[$key]['registerDate'].'</td>
-				</tr>';
-}
-?>
+		<div id="accordionTable" class="accordion">
+			<div id="headingTable" class="card-header">
+				<button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"><?php echo JText::_('MOD_USERLIST_VIEW_BUTTON_ACCORDION');?></button>
+			</div>
+			<br />
 
-			<?php echo $output; ?>
-		</table>
+			<div id="collapseOne" class="collapse show" data-parent="#accordionTable">
+				<div>
+				    <table border="1">
+			        	<tr class="table_heading">
+			               	<th width="20%"><?php echo JText::_('MOD_USERLIST_VIEW_TABLEHEADING_NAME');?></th>
+			                <th width="15%"><?php echo JText::_('MOD_USERLIST_VIEW_TABLEHEADING_USERNAME');?></th> 
+			                <th width="25%"><?php echo JText::_('MOD_USERLIST_VIEW_TABLEHEADING_EMAIL');?></th>
+			                <th width="10%"><?php echo JText::_('MOD_USERLIST_VIEW_TABLEHEADING_ENABLED');?></th>   
+			                <th width="15%"><?php echo JText::_('MOD_USERLIST_VIEW_TABLEHEADING_LASTVISIT');?></th>
+			                <th width="15%"><?php echo JText::_('MOD_USERLIST_VIEW_TABLEHEADING_REGISTERDATE');?></th> 
+			        	</tr>
+
+			<?php
+			// Create Table out of fetched Data from Database
+			foreach ($items as $key => $entry) {
+				$output .= '<tr>
+								<td>'.$items[$key]['name'].'</td>
+								<td>'.$items[$key]['username'].'</td>
+								<td>'.$items[$key]['email'].'</td>
+								<td>'.!$items[$key]['block'].'</td>
+								<td>'.$items[$key]['lastvisitDate'].'</td>
+								<td>'.$items[$key]['registerDate'].'</td>
+							</tr>';
+			}
+			?>
+
+						<?php echo $output; ?>
+					</table>
+				</div>
+			</div>
+		</div>
+
 		<textarea form="form_PDF" name="html_table" readonly style="display: none;">
 			<?php echo $output; ?>
 		</textarea>
