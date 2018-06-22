@@ -1,10 +1,28 @@
-<?php 
+<?php
+/**
+ * VIEW of the Userlist-Module
+ * 
+ * @package    Userlist
+ * @subpackage mod_userlist
+ * @version    1.1.0
+ *
+ * @author     Manuel Haeusler <tech.spuur@quickline.com>
+ * @copyright  2018 Manuel Haeusler
+ * @license    GNU/GPL, see LICENSE.php
+ *
+ * mod_userlist is free software. This version may have been modified pursuant
+ * to the GNU General Public License, and as distributed it includes or
+ * is derivative of works licensed under the GNU General Public License or
+ * other free or open source software licenses.
+ */
+
 // No direct access
 defined('_JEXEC') or die; ?>
 
 <?php
 // HTML-Output
 // ------------
+
 $output = '';
 $url = JUri::base() . 'modules/mod_userlist/userlist_PDF.php';
 ?>
@@ -34,19 +52,19 @@ $url = JUri::base() . 'modules/mod_userlist/userlist_PDF.php';
 	<div class="table-responsive">  
 		<div class="col-md-12" align="right">
 	    	<form id="form_PDF" method="post" action="">
-	        	<input type="submit" name="generate_pdf" class="btn btn-success" value="PDF Download">  
+	        	<input type="submit" name="generate_pdf" class="btn btn-success" value="<?php echo JText::_('MOD_USERLIST_VIEW_BUTTON');?>">  
 	     	</form>  
 	    </div>
 	    <br/>
 	    <br/>
 	    <table border="1">
         	<tr class="table_heading">
-               	<th width="20%">Name</th>
-                <th width="15%">Benutzer</th> 
-                <th width="25%">E-Mail</th>
-                <th width="10%">Aktiviert</th>   
-                <th width="15%">Letzter Besuch</th>
-                <th width="15%">Register-Datum</th> 
+               	<th width="20%"><?php echo JText::_('MOD_USERLIST_VIEW_TABLEHEADING_NAME');?></th>
+                <th width="15%"><?php echo JText::_('MOD_USERLIST_VIEW_TABLEHEADING_USERNAME');?></th> 
+                <th width="25%"><?php echo JText::_('MOD_USERLIST_VIEW_TABLEHEADING_EMAIL');?></th>
+                <th width="10%"><?php echo JText::_('MOD_USERLIST_VIEW_TABLEHEADING_ENABLED');?></th>   
+                <th width="15%"><?php echo JText::_('MOD_USERLIST_VIEW_TABLEHEADING_LASTVISIT');?></th>
+                <th width="15%"><?php echo JText::_('MOD_USERLIST_VIEW_TABLEHEADING_REGISTERDATE');?></th> 
         	</tr>
 
 <?php
@@ -78,7 +96,13 @@ jQuery(document).ready(function(){
 	    event.preventDefault();
 
 		var formData = new FormData(document.getElementById('form_PDF'));
-		//formData.append('name', 'value');
+		formData.append('table_heading_name', '<?php echo JText::_('MOD_USERLIST_VIEW_TABLEHEADING_NAME');?>');
+		formData.append('table_heading_username', '<?php echo JText::_('MOD_USERLIST_VIEW_TABLEHEADING_USERNAME');?>');
+		formData.append('table_heading_email', '<?php echo JText::_('MOD_USERLIST_VIEW_TABLEHEADING_EMAIL');?>');
+		formData.append('table_heading_enabled', '<?php echo JText::_('MOD_USERLIST_VIEW_TABLEHEADING_ENABLED');?>');
+		formData.append('table_heading_lastvisit', '<?php echo JText::_('MOD_USERLIST_VIEW_TABLEHEADING_LASTVISIT');?>');
+		formData.append('table_heading_registerdate', '<?php echo JText::_('MOD_USERLIST_VIEW_TABLEHEADING_REGISTERDATE');?>');
+		formData.append('print_date', '<?php echo JText::_('MOD_USERLIST_PDF_PRINTDATE');?>');
 
 		var xhr=new XMLHttpRequest();
 		xhr.open("POST", "<?php echo $url;?>", true);
@@ -90,14 +114,11 @@ jQuery(document).ready(function(){
 			    var link = document.createElement('a');
 			    document.body.appendChild(link);
 			    link.href = URL.createObjectURL(blob);
-			    link.download="Benutzerliste.pdf";
+			    link.download="<?php echo JText::_('MOD_USERLIST');?>.pdf";
 				link.style = "display: none";
 			    link.click();
 			} else if (this.status == 403) {
-				alert("Antwort vom Server: 403 - Access denied");
-			} else {
-				console.log(this.readyState);
-				console.log(this.status);
+				alert("Response from server: 403 - Access denied");
 			}
 		};
 		xhr.send(formData);

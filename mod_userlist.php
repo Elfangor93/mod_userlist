@@ -1,12 +1,16 @@
 <?php
 /**
- * Hello World! Module Entry Point
+ * Userlist Module Entry Point
  * 
- * @package    Joomla.Tutorials
- * @subpackage Modules
+ * @package    Userlist
+ * @subpackage mod_userlist
+ * @version    1.1.0
+ *
+ * @author     Manuel Haeusler <tech.spuur@quickline.com>
+ * @copyright  2018 Manuel Haeusler
  * @license    GNU/GPL, see LICENSE.php
- * @link       http://docs.joomla.org/J3.x:Creating_a_simple_module/Developing_a_Basic_Module
- * mod_helloworld is free software. This version may have been modified pursuant
+ *
+ * mod_userlist is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
  * other free or open source software licenses.

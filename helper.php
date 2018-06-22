@@ -1,11 +1,15 @@
 <?php
 /**
- * Helper class for Hello World! module
+ * Helper class for Userlist module
  * 
- * @package    Joomla.Tutorials
- * @subpackage Modules
- * @link http://docs.joomla.org/J3.x:Creating_a_simple_module/Developing_a_Basic_Module
- * @license        GNU/GPL, see LICENSE.php
+ * @package    Userlist
+ * @subpackage com_userlist
+ * @version    1.1.0
+ *
+ * @author     Manuel Haeusler <tech.spuur@quickline.com>
+ * @copyright  2018 Manuel Haeusler
+ * @license    GNU/GPL, see LICENSE.php
+ *
  * mod_helloworld is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
@@ -14,9 +18,13 @@
 class ModUserlistHelper
 {
     /**
-     * Retrieves the hello message
+     * Retrieves all users from the database
      *
-     * @param   array  $params An object containing the module parameters
+     * @param   string  $param_order_which      The order_which parameter of the module configuration
+     * @param   string  $param_ordering         The ordering parameter of the module configuration
+     *
+     * @return  associative Array               Array with a list of all specified entries for every user
+     * @since   1.0.0
      *
      * @access public
      */    
@@ -43,7 +51,10 @@ class ModUserlistHelper
                 break;
             case 2:
                 $order_which = 'email';
-                break;            
+                break;
+            case 3:
+                $order_which = 'block';
+                break;        
             default:
                 $order_which = 'name';
                 break;

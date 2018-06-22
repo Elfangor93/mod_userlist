@@ -1,10 +1,27 @@
 <?php
+/**
+ * PDF generation script of the Userlist-Module
+ * 
+ * @package    Userlist
+ * @subpackage mod_userlist
+ * @version    1.1.0
+ *
+ * @author     Manuel Haeusler <tech.spuur@quickline.com>
+ * @copyright  2018 Manuel Haeusler
+ * @license    GNU/GPL, see LICENSE.php
+ *
+ * mod_userlist is free software. This version may have been modified pursuant
+ * to the GNU General Public License, and as distributed it includes or
+ * is derivative of works licensed under the GNU General Public License or
+ * other free or open source software licenses.
+ */
 
 // If Button PDF-Download is clicked: generate PDF
 if(isset($_POST["html_table"]))  { 
       
-      //load Table from Form submit
+      //load Data from Form submit
       $output = $_POST["html_table"];
+      $print_date = $_POST["print_date"];
       //generate PDF
       require_once('TCPDF/tcpdf.php');  
       $obj_pdf = new TCPDF('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);  
@@ -27,12 +44,12 @@ if(isset($_POST["html_table"]))  {
       $content = '<h1>registrierte Benutzer:</h1><br />';
       $content .= '<table>
                     <tr class="table_heading" style="font-weight: bold;">
-                        <th width="19%">Name</th>
-                        <th width="19%">Benutzer</th> 
-                        <th width="25%">E-Mail</th>
-                        <th width="7%">Aktiviert</th>   
-                        <th width="15%">Letzter Besuch</th>
-                        <th width="15%">Register-Datum</th> 
+                        <th width="19%">'.$_POST["table_heading_name"].'</th>
+                        <th width="19%">'.$_POST["table_heading_username"].'</th> 
+                        <th width="25%">'.$_POST["table_heading_email"].'</th>
+                        <th width="7%">'.$_POST["table_heading_enabled"].'</th>   
+                        <th width="15%">'.$_POST["table_heading_lastvisit"].'</th>
+                        <th width="15%">'.$_POST["table_heading_registerdate"].'</th> 
                     </tr>
                     <tr>
                         <th></th>
@@ -43,17 +60,16 @@ if(isset($_POST["html_table"]))  {
                         <th></th> 
                     </tr>';
       $content .= $output;
-      $content .= '<br /><p>Druckdatum: '.date("d.m.Y, H:i \U\H\R").'</p>';
+      $content .= '<br /><p>'.$print_date.' '.date("d.m.Y, H:i \U\H\R").'</p>';
 
       //paste content into the PDF 
       //$obj_pdf->setCellHeightRatio(1.25);
       $obj_pdf->writeHTML($content, true, false, true, false, '');
       //output the PDF
       ob_end_clean(); 
-      $obj_pdf->Output('Benutzerliste.pdf', 'I');
- echo '<div class="alert alert-success"><p>PDF erfolgreich generiert</p></div><br />';
+      $obj_pdf->Output('userlist.pdf', 'I');
 } else {
-  echo '<div class="alert alert-danger"><p>Diese Seite ist nur verfügbar, wenn sie aus dem Joomla-Modul ("Userlist") aufgerufen wird.</p></div><br />';
+  echo '<div class="alert alert-danger"><p>This page is only available if it is called from the Joomla module ("Userlist").</p></div><br />';
 }
 
 ?>
