@@ -1,4 +1,4 @@
-# README
+# mod_userlist
 Ein Modul fürs Joomla-Backend. Damit lässt sich eine dynamisch erzeugte Liste aller registrierten Joomla Benutzer als PDF downloaden. Das Kriterium, nach welchem die Benutzer sortiert werden sollen, kann in den Moduleinstellungen definiert werden. 
 
 ## Getting Started
